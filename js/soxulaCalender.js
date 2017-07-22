@@ -3,12 +3,7 @@
         Calender.document = doc;
         Calender.SelectedDay = dateToHighlight;
     };
-    printDay(date, entry = []) {
-
-        entry.push("Stuff");
-        entry.push("I");
-        entry.push("Like");
-
+    printDay(date) {
 
         if (!date) return "No param passed to printDay(date)";
         let tempDate = new Date();
@@ -28,10 +23,22 @@
             }
             document.write("\" id=\"cal-name-element-day-" + tempDate.getDate() + "\">");
             document.write("<div><time datetime=\"" + tempDate.getFullYear() + "-" + tempDate.getDate() + "\">" + CalenderFunctions.getDayOfWeekString(tempDate.getDay()) + " " + (tempDate.getDate()) + "</time></div>");
-            document.write("<ul>");                
-            entry.forEach(function (value) {
-                document.write("<li>" + value + "</li>");
+            document.write("<ul>");    
+            var lastTime ="";
+            Appointments.forEach(function (value) {
+                var date = new Date(value.Appointment.Date);
+                if (date.getMonth() == tempDate.getMonth() &&
+                    date.getDate() == tempDate.getDate()) {
+                    var time = date.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+                    document.write("<li class=\"appointment\">");
+                    if (date.toLocaleTimeString() == lastTime) {
+                        document.write("<aside class=\"warning\">WARNING: You may have double booked.</aside>");
+                    }
+                    document.write(value.Appointment.Invitee + ":" + time + "</li>");
+                    lastTime = date.toLocaleTimeString();
+                }
             });
+
             document.write("</ul>");
             document.write("</div > ");
             
@@ -64,20 +71,10 @@
         }
     };
 };
-
 var DateEnums = {
     DaysInWeek: 7,
     MonthsInYear: 12
 }
-
-function printgarbage() {
-    var str = "";
-    for (i = 0; i < 500; i++) {
-        str += "lk;jalk;djflk;adjsflkjsadklfja;lkdjfl;kdsa";
-    }
-    return str;
-}
-
 var CalenderFunctions = class {
     static getDayOfWeekString(int) {
         int++;

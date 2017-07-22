@@ -3,6 +3,7 @@
 
 <head>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="http://legionauts.com/test/AppointmentData.php"></script>
     <script src="js\soxulaCalender.js"></script>
     <script src="js\soxulaHelper.js"></script>
     <script src="js\soxulaMobile.js"></script>
@@ -20,19 +21,16 @@
             </script>
         </div>
     </section>
-    <script src="http://legionauts.com/test/AppointmentData.php"></script>
     <script>
-
-        document.write(Appointments[0].Appointment.Caller);
-
-        $(document).ready(function () {
-            var date = new Date();
-            var today = date.getDate();
-            var element = "#cal-name-element-day-" + today;
-            alert(element);
-            var scrollPostion = $(element).position().top;
-            $(this).scrollTop(scrollPostion);
-        });
+            $(document).ready(function () {
+                Window_Resize();
+                var date = new Date();
+                var today = date.getDate();
+                var element = "#cal-name-element-day-" + today;
+                alert(element);
+                var scrollPostion = $(element).position().top;
+                $(this).scrollTop(scrollPostion);
+            });
                 
     </script>
 

@@ -39,3 +39,13 @@
         background-color: aqua;
         color:black;
 }
+
+li.appointment:hover{
+    background-color:darkkhaki;
+}
+
+aside.warning{
+    background-color:orangered;
+    font-size:1.25em;
+    display:inline-block;
+}
