@@ -1,0 +1,41 @@
+﻿.calender {
+    width: 960px;
+    background-color: gray;
+}
+
+.calender-element {
+    background-color: beige;
+    min-height:50px;
+    min-width:125px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    margin: 2px;
+    display: inline-block;
+}
+
+.calender-element:hover{
+    background-color:aqua;
+}
+
+.calender-element.highlight {
+        background-color: aliceblue;
+}
+
+#cal-name {
+    display: block;
+}
+
+.calender-row {
+    width: 100%;
+    display: block;
+}
+
+.calender-element.today{
+    background-color:black;
+    color:white;
+}
+.calender-element.today:hover {
+        background-color: aqua;
+        color:black;
+}

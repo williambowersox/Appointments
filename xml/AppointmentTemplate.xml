@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root PUBLIC '-//W3C//DTD HTML 3.2 Final//EN' 'null'>
+
+<appointments>
+    <appointment date="" caller="" invitee="" phoneNumber="">
+        <topic>
+            <description></description>
+        </topic>
+    </appointment>
+</appointments>
