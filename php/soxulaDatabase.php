@@ -71,7 +71,7 @@ class SoxulaDatabase {
         
         $str = "SELECT ";
         foreach($selectFieldArray as $field){
-            $str.= "{$field},";
+            $str.= "`{$field}`,";
         }$str = substr($str,0,strlen($str)-1);
         $str.= " FROM {$from}";
         
@@ -91,7 +91,6 @@ class SoxulaDatabase {
             //$str.= " ORDER BY (?) ";
             $str.= " ORDER BY {$orderBy} ";
             $str = substr($str,0,strlen($str)-1);
-            //$this->addToParamArray($params,$orderBy);
             if($desc){$str.= " DESC";}
         }
         $str.= ";";
@@ -152,7 +151,8 @@ class SoxulaDatabase {
         }
         $statementObj->execute();
         
-        switch($whereCount){
+        $selectCount = count($selectFieldArray);
+        switch($selectCount){
             case 1:{
                 $statementObj->bind_result($param1);
                 break;
@@ -201,27 +201,27 @@ class SoxulaDatabase {
         
         $statementObj->fetch();
         $paramArray = [];
-        switch($whereCount){
+        switch($selectCount){
             case 10:
-                $paramArray[] = $param10;
+                $paramArray[9] = $param10;
             case 9:
-                $paramArray[] = $param9;
+                $paramArray[8] = $param9;
             case 8:
-                $paramArray[] = $param8;
+                $paramArray[7] = $param8;
             case 7:
-                $paramArray[] = $param7;
+                $paramArray[6] = $param7;
             case 6:
-                $paramArray[] = $param6;
+                $paramArray[5] = $param6;
             case 5:
-                $paramArray[] = $param5;
+                $paramArray[4] = $param5;
             case 4:
-                $paramArray[] = $param4;
+                $paramArray[3] = $param4;
             case 3:
-                $paramArray[] = $param3;
+                $paramArray[2] = $param3;
             case 2:
-                $paramArray[] = $param2;
+                $paramArray[1] = $param2;
             case 1:
-                $paramArray[] = $param1;
+                $paramArray[0] = $param1;
                 break;
             default:
                 die("YOU NEED TO PROVIDE SELECT FIELDS");
@@ -246,5 +246,8 @@ class SoxulaDatabase {
 }
 
 $test = new SoxulaDatabase();
-$result = $test->SelectQuery('appointments',['id'],['id'],[1],'id',true);
+$result = $test->SelectQuery('appointments',['topic','description','phone number'],['id'],[1],'id',true);
+print_r($result);
+
+print $result[0];
 
