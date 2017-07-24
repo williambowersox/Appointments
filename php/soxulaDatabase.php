@@ -19,7 +19,7 @@
 namespace schedule;
   use \mysqli; 
 /**
- * Description of database
+ * Sqli wrapper class for simple website database functions
  *
  * @author WIlliam Bowersox
  */
