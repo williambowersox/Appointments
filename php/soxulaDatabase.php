@@ -227,8 +227,8 @@ class SoxulaDatabase {
                 die("YOU NEED TO PROVIDE SELECT FIELDS");
                 
         }
+        return $paramArray;
         
-        print_r($paramArray);
         $this->connection->close();
     }
     public function SimpleSelectQuery($sql){
