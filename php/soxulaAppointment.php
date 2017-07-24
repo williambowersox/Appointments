@@ -1,14 +1,12 @@
 <?php
-namespace schedule{
-    use \DateTime;
-    use \IteratorAggregate;
-    
+namespace schedule{ 
     define("USDATETIME" , "m/d/Y h:i A");
     define("DATADATETIME", "Y/m/d h:i A");
     
     class Appointments{
         public static $count = 0;
-        public function __construct($ListOwner){$this->owner = $ListOwner;$this->count++;}
+        public function __construct($ListOwner){$this->owner = $ListOwner; Appointments::$count++;}
+        public function __destruct(){Appointments::$count--;}
         public function AddAppointment($Appointment){$this->AppointmentArray[$this->AppointmentCount()] = $Appointment;}
         public function RemoveAppointment($index){  
             if($this->AppointmentArray[$index]){
@@ -18,7 +16,9 @@ namespace schedule{
             }
             return false;
         }
-        public function GetAppointment($index){return $this->AppointmentArray[$index];}
+        public function GetAppointment($index){
+            return $this->AppointmentArray[$index];
+        }
         public function AppointmentCount(){return count($this->AppointmentArray);}
         private $owner;
         private $AppointmentArray = array();
@@ -26,7 +26,7 @@ namespace schedule{
     
     class  Appointment{
         public static $count = 0;
-        public function __construct($date,$myself, $withWhom,$PhoneNumber, $Topic="",$description="", $Address=""){
+        public function __construct($date,$myself, $withWhom,$PhoneNumber, $Topic="",$description="", $Address="", $public=false){
             $this->date = $date;
             $this->myself = $myself;
             $this->withWhom = $withWhom;
@@ -34,11 +34,14 @@ namespace schedule{
             $this->description = $description;
             $this->address = $Address;
             $this->phoneNumber = $PhoneNumber;
-            $this->public = false;
-            $this->count++;
+            $this->public = $public;
+            Appointment::$count++;
+        }
+        public function __destruct(){
+            Appointment::$count--;
         }
         public function togglePublic(){
-            if($public)
+            if($this->public)
             {$this->public = false;}
             else
             {$this->public = true;}
@@ -53,13 +56,13 @@ namespace schedule{
             $json = "{\"Appointment\":{";
             $json.= "\"Date\":\"";
             $json.= $this->date->format(DATADATETIME)."\",";
-            $json.= "\"Caller\":\"{$this->myself}\",";
+            $json.= "\"Myself\":\"{$this->myself}\",";
             $json.= "\"Invitee\":\"{$this->withWhom}\",";
             $json.= "\"Topic\":\"{$this->topic}\",";
             $json.= "\"Description\":\"{$this->description}\",";
             $json.= "\"Phone Number\":\"{$this->phoneNumber}\"";
-            if($public)
-                {$json.= ",\"Public\":\"{$public}\"";}
+            if($this->public)
+                {$json.= ",\"Public\":\"{$this->public}\"";}
             $json.= "}";
             $json.= "}";
             return $json;
@@ -83,7 +86,7 @@ namespace schedule{
 
             return $xml;
         }
-        private $date = DateTime;
+        private $date;
         private $myself;
         private $withWhom;
         private $topic;

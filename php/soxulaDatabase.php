@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2017 William Bowersox.
  *
@@ -77,6 +76,7 @@ class SoxulaDatabase {
         
         $whereFieldsCount = count($whereArrayFields);
         $whereValuesCount = count($whereArrayValues);
+        
         if($whereArrayFields && 
                 $whereArrayValues && 
                 $whereFieldsCount == $whereValuesCount
@@ -94,16 +94,15 @@ class SoxulaDatabase {
             if($desc){$str.= " DESC";}
         }
         $str.= ";";
-        
-        echo $str.PHP_EOL;
-        
+
         $statementObj = $this->connection->prepare($str);
         if(!$statementObj){print "Connection failed";} 
         
         $typeString = $this->createTypeString($params);
-        echo $typeString;
         
-        $whereCount = count($whereValuesCount);
+        $whereCount = count($whereArrayValues);
+        //echo $str.PHP_EOL.$whereCount.PHP_EOL.$typeString.PHP_EOL;
+
         switch($whereCount){
             case 1:{
                 $statementObj->bind_param($typeString,$whereArrayValues[0] );
@@ -198,35 +197,36 @@ class SoxulaDatabase {
                 break;
         }
         
-        
-        $statementObj->fetch();
         $paramArray = [];
-        switch($selectCount){
-            case 10:
-                $paramArray[9] = $param10;
-            case 9:
-                $paramArray[8] = $param9;
-            case 8:
-                $paramArray[7] = $param8;
-            case 7:
-                $paramArray[6] = $param7;
-            case 6:
-                $paramArray[5] = $param6;
-            case 5:
-                $paramArray[4] = $param5;
-            case 4:
-                $paramArray[3] = $param4;
-            case 3:
-                $paramArray[2] = $param3;
-            case 2:
-                $paramArray[1] = $param2;
-            case 1:
-                $paramArray[0] = $param1;
-                break;
-            default:
-                die("YOU NEED TO PROVIDE SELECT FIELDS");
-                
+        while($statementObj->fetch()){
+            switch($selectCount){
+                case 10:
+                    $paramArray[] = $param10;
+                case 9:
+                    $paramArray[] = $param9;
+                case 8:
+                    $paramArray[] = $param8;
+                case 7:
+                    $paramArray[] = $param7;
+                case 6:
+                    $paramArray[] = $param6;
+                case 5:
+                    $paramArray[] = $param5;
+                case 4:
+                    $paramArray[] = $param4;
+                case 3:
+                    $paramArray[] = $param3;
+                case 2:
+                    $paramArray[] = $param2;
+                case 1:
+                    $paramArray[] = $param1;
+                    break;
+                default:
+                    die("YOU NEED TO PROVIDE SELECT FIELDS");
+
+            }
         }
+        $paramArray = array_reverse($paramArray);
         return $paramArray;
         
         $this->connection->close();
@@ -245,9 +245,9 @@ class SoxulaDatabase {
     private $dbName = "legio10_soxula";
 }
 
-$test = new SoxulaDatabase();
+/*$test = new SoxulaDatabase();
 $result = $test->SelectQuery('appointments',['topic','description','phone number'],['id'],[1],'id',true);
 print_r($result);
 
 print $result[0];
-
+*/
