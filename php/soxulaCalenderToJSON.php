@@ -21,9 +21,13 @@ require_once 'soxulaDatabase.php';
 use \DateTime;
 
 $db = new SoxulaDatabase();
-$publicArray = $db->SelectQuery('appointments',['date','owner','invitee','phone number','topic','description','address'],['public','owner'],[1,1],'id',true);
+//[,,] is not a sytax that works with PHP 5.0 which is what my web server is
+$selectArray = array('date','owner','invitee','phone number','topic','description','address');
+$whereFieldArray = array('public','owner');
+$whereValueArray = array(1,1);
+$publicArray = $db->SelectQuery('appointments',$selectArray,$whereFieldArray,$whereValueArray,true);
 $fieldWidth = 7;
-$Appointments = new Appointments("TEST");
+$Appointments = new Appointments($publicArray[1]);
 
 for($i=0,$record=0; $i<count($publicArray); $i+=$fieldWidth, $record++){
     $Appointments->addAppointment(new Appointment(new DateTime($publicArray[0+$i]),$publicArray[1+$i], $publicArray[2+$i],$publicArray[3+$i],$publicArray[4+$i],$publicArray[5+$i],$publicArray[6+$i],true));    

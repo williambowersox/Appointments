@@ -40,7 +40,7 @@ class SoxulaDatabase {
     }
     private function ConvertResultToArray($result){
        $i =0;
-       $rowArray = [];
+       $rowArray = array();
        while($row = $result->fetch_assoc()){
            $rowArray[$i] = $row;
            $i++;
@@ -63,10 +63,10 @@ class SoxulaDatabase {
                 return "Invalid Type.";
         }
     }
-    public function SelectQuery($from,$selectFieldArray=[],$whereArrayFields=[],$whereArrayValues=[],$orderBy = null,$desc = false){
+    public function SelectQuery($from,$selectFieldArray=array(),$whereArrayFields=array(),$whereArrayValues=array(),$orderBy = null,$desc = false){
         if(!$from) {die("You must suppy a table");}
         if(!$selectFieldArray){ die("You must supply select fields.");}
-        $params = [];
+        $params = array();
         
         $str = "SELECT ";
         foreach($selectFieldArray as $field){
@@ -101,7 +101,6 @@ class SoxulaDatabase {
         $typeString = $this->createTypeString($params);
         
         $whereCount = count($whereArrayValues);
-        //echo $str.PHP_EOL.$whereCount.PHP_EOL.$typeString.PHP_EOL;
 
         switch($whereCount){
             case 1:{
@@ -197,7 +196,7 @@ class SoxulaDatabase {
                 break;
         }
         
-        $paramArray = [];
+        $paramArray = array();
         while($statementObj->fetch()){
             switch($selectCount){
                 case 10:
