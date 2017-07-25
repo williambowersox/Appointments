@@ -3,36 +3,29 @@
 
 <head>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <script src="http://legionauts.com/test/AppointmentData.php"></script>
+    <script src="http://www.williambowersox.com/soxulaCalenderToJSON.php"></script>
     <script src="js\soxulaCalender.js"></script>
-    <script src="js\soxulaHelper.js"></script>
+    <script src="js\soxulaCalenderUI.js"></script>
     <script src="js\soxulaMobile.js"></script>
+    
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css\bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css\calender.css" />
 </head>
 
 <body>
+
     <section>
         <div class="calender" id="calender">
             <script>
-                var newCalender = new Calender(document, new Date());
-                newCalender.printMonth(new Date());
+                printMounthCarosel(document, new Date());
+                //var newCalender = new Calender(document, new Date());
+                //newCalender.printMonth(new Date());
             </script>
         </div>
     </section>
-    <script>
-            $(document).ready(function () {
-                Window_Resize();
-                var date = new Date();
-                var today = date.getDate();
-                var element = "#cal-name-element-day-" + today;
-                alert(element);
-                var scrollPostion = $(element).position().top;
-                $(this).scrollTop(scrollPostion);
-            });
-                
-    </script>
+    <script src="soxulaPage.js"></script>
 
 </body>
 

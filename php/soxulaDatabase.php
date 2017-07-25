@@ -20,7 +20,7 @@ namespace schedule;
 /**
  * Sqli wrapper class for simple website database functions
  *
- * @author WIlliam Bowersox
+ * @author William Bowersox
  */
 class SoxulaDatabase {
     public function __construct(){
@@ -88,7 +88,6 @@ class SoxulaDatabase {
             }$str = substr($str,0,strlen($str)-3);
         }
         if($orderBy){
-            //$str.= " ORDER BY (?) ";
             $str.= " ORDER BY {$orderBy} ";
             $str = substr($str,0,strlen($str)-1);
             if($desc){$str.= " DESC";}
@@ -96,6 +95,7 @@ class SoxulaDatabase {
         $str.= ";";
 
         $statementObj = $this->connection->prepare($str);
+        print_r($statementObj);
         if(!$statementObj){print "Connection failed";} 
         
         $typeString = $this->createTypeString($params);

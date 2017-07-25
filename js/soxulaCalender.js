@@ -2,6 +2,7 @@
     constructor(doc,dateToHighlight) {
         Calender.document = doc;
         Calender.SelectedDay = dateToHighlight;
+        Calender.largestElement = 0;
     };
     printDay(date) {
 
@@ -21,27 +22,34 @@
                 tempDate.getMonth() == today.getMonth()) {
                 document.write(" today");
             }
-            document.write("\" id=\"cal-name-element-day-" + tempDate.getDate() + "\">");
-            document.write("<div><time datetime=\"" + tempDate.getFullYear() + "-" + tempDate.getDate() + "\">" + CalenderFunctions.getDayOfWeekString(tempDate.getDay()) + " " + (tempDate.getDate()) + "</time></div>");
-            document.write("<ul>");    
-            var lastTime ="";
+            var elementID = "cal-name-element-month-"+tempDate.getMonth()+"-day-" + tempDate.getDate();
+            document.write("\" id=\"" + elementID + "\">");
+            document.write("<div><h2 class=\"cal-date-header\"><time datetime=\"" + tempDate.getFullYear() + "-" + tempDate.getDate() + "\">" + CalenderFunctions.getDayOfWeekString(tempDate.getDay()) + " " + (tempDate.getDate()) + "</time></h2></div>");
+            document.write("<ul >");    
+            var lastTime = "";
+            var date;
             Appointments.forEach(function (value) {
-                var date = new Date(value.Appointment.Date);
+                date = new Date(value.Appointment.Date);
                 if (date.getMonth() == tempDate.getMonth() &&
                     date.getDate() == tempDate.getDate()) {
                     var time = date.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
-                    document.write("<li class=\"appointment\">");
-                    if (date.toLocaleTimeString() == lastTime) {
-                        document.write("<aside class=\"warning\">WARNING: You may have double booked.</aside>");
-                    }
+                    document.write("<li class=\"event-list\">");
+                    /**************
+                    TEMP FUNCTION UNTIL DATABASE IS MADE FOR THIS
+                    **************/
+                    if (value.Appointment.Invitee == 2) value.Appointment.Invitee = "JRR";
+                    if (value.Appointment.Invitee == 3) value.Appointment.Invitee = "NORIS";
                     document.write(value.Appointment.Invitee + ":" + time + "</li>");
                     lastTime = date.toLocaleTimeString();
                 }
             });
+            if (date.toLocaleTimeString() == lastTime && tempDate.getMonth() == date.getMonth()) {
+                $("<aside class=\"warning\">WARNING: You may have double booked.</aside>").prependTo('#' + elementID);/*document.write("<aside class=\"warning\">WARNING: You may have double booked.</aside>");*/
+            }
 
             document.write("</ul>");
             document.write("</div > ");
-            
+
     };
     printWeek(date) {
         var dayOfWeek = date.getDay();
@@ -51,26 +59,28 @@
             this.printDay(date);
             date.setDate(date.getDate() + 1);
         }
-
-
         Calender.document.write("</div>");
     };
     printMonth(date) {
         var placeHolderMonth = date.getMonth();
-        Calender.document.write("<div style=\"float:left;\">" + CalenderFunctions.getMonthString(date.getMonth()) + "</div><div>" + date.getFullYear() + "</div>");
+        Calender.document.write("<div class=\"calender-month-container\">");
+        Calender.document.write("<header class=\"calender-month-header\"><h1>" + CalenderFunctions.getMonthString(date.getMonth()) + " " + date.getFullYear() + "</h1></header>");
         date.setDate(1);
         do {
             this.printWeek(date);
-            
-        }while(date.getMonth() == placeHolderMonth)
+        } while (date.getMonth() == placeHolderMonth)
+        Calender.document.write("</div>");
     };
     printYear(date) {
         date.setMonth(0); date.setDate(1);
         for (var i = 0; i < DateEnums.MonthsInYear; i++) {
             this.printMonth(date);
         }
-    };
+    }; 
 };
+
+
+
 var DateEnums = {
     DaysInWeek: 7,
     MonthsInYear: 12

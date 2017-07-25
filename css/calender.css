@@ -1,51 +1,127 @@
 ﻿.calender {
-    width: 960px;
-    background-color: gray;
+    background-color:cyan;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+}
+
+.calender-month-container {
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color:lightcyan;
 }
 
 .calender-element {
+    display:inline-block;
     background-color: beige;
-    min-height:50px;
-    min-width:125px;
+    width:13%;
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    margin: 2px;
+    margin: auto;
     display: inline-block;
+    vertical-align:top;
+    overflow:auto;
+    font-size:small;
+    border-radius:15px;
+    margin-bottom:5px;
 }
 
-.calender-element:hover{
-    background-color:aqua;
+.calender-month-header{
+    text-align:center;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+    line-height:0px;
+    font-size:x-large;
+}
+
+.calender-element:hover {
+    background-color: aqua;
 }
 
 .calender-element.highlight {
         background-color: aliceblue;
+}
+.calender-row {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.btn{
+    width:100px;
+    height:50px;
+    background-color:black;
+    display:inline-block;
+    color:white;
+}
+.btn.previous{
+    float:left;
+}
+.btn.next{
+    float:right;
+}
+.calender-element.today {
+    background-color:darkgrey;
+    color:black;
+}
+
+.calender-element.today:hover {
+        background-color: aqua;
+        color: black;
+}
+
+.off-day{
+    background-color:palegoldenrod;
 }
 
 #cal-name {
     display: block;
 }
 
-.calender-row {
-    width: 100%;
-    display: block;
+h2.cal-date-header {
+    position:relative;
+    top:-13px;
+    font-size: medium;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    vertical-align:text-top;
+    background-color:white;
 }
 
-.calender-element.today{
-    background-color:black;
-    color:white;
-}
-.calender-element.today:hover {
-        background-color: aqua;
-        color:black;
-}
-
-li.appointment:hover{
-    background-color:darkkhaki;
+li.event-list:hover {
+    background-color: darkkhaki;
 }
 
 aside.warning{
     background-color:orangered;
     font-size:1.25em;
     display:inline-block;
+}
+
+
+ul {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+ul ul {
+    margin-left: 2px;
+    padding-left: 2px;
+    margin-top: 2px;
+    padding-top: 2px;
+    margin-left: 2px;
 }

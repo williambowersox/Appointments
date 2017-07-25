@@ -25,7 +25,7 @@ $db = new SoxulaDatabase();
 $selectArray = array('date','owner','invitee','phone number','topic','description','address');
 $whereFieldArray = array('public','owner');
 $whereValueArray = array(1,1);
-$publicArray = $db->SelectQuery('appointments',$selectArray,$whereFieldArray,$whereValueArray,true);
+$publicArray = $db->SelectQuery('appointments',$selectArray,$whereFieldArray,$whereValueArray,'id',true);
 $fieldWidth = 7;
 $Appointments = new Appointments($publicArray[1]);
 
